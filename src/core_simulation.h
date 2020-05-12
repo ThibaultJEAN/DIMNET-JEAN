@@ -1,6 +1,14 @@
 #ifndef CORE_SIMULATEUR_H
 #define CORE_SIMULATEUR_H
 
+// sleep() also under windows
+#ifdef __unix__
+# include <unistd.h>
+#elif defined _WIN32
+# include <windows.h>
+#define sleep(x) Sleep(1000 * (x))
+#endif
+
 #include <iostream>
 #include <string>
 #include <thread>
@@ -19,7 +27,7 @@ using namespace std;
 enum typeio {OUTPUT, INPUT};
 
 // exceptions gerees
-enum excep {SPEED, INOUT, ADDRESS, SIZE, EMPTY};
+enum excep {SPEED, INOUT, ADDRESS, SIZEXC, EMPTY};
 class BoardException{
 protected:
     // numero de l'exception

@@ -14,7 +14,7 @@ string BoardException::text(){
   case SPEED : s=string("mauvaise vitesse de la laison terminal");break;
   case INOUT : s=string("mauvaise utilisation du sens de l'entree/sortie"); break;
   case ADDRESS : s=string("mauvaise adresse de la pin"); break;
-  case SIZE : s=string("taille erronee"); break;
+  case SIZEXC : s=string("taille erronee"); break;
   case EMPTY: s=string("zone vide"); break;
   default: s=string("erreur inconnue");
   }
@@ -53,7 +53,7 @@ int I2C::write(int addr, char* bytes, int size){
   if ((addr<0)||(addr>=MAX_I2C_DEVICES))
     throw BoardException(ADDRESS);
   if ((size<0)||(size>I2C_BUFFER_SIZE))
-    throw BoardException(SIZE);
+    throw BoardException(SIZEXC);
   tabmutex[addr].lock();
   memcpy(registre[addr],bytes,size*sizeof(char));
   vide[addr]=false;
@@ -66,7 +66,7 @@ int I2C::requestFrom(int addr, char* bytes, int size){
   if ((addr<0)||(addr>=MAX_I2C_DEVICES))
     throw BoardException(ADDRESS);
   if ((size<0)||(size>I2C_BUFFER_SIZE))
-    throw BoardException(SIZE);
+    throw BoardException(SIZEXC);
   if (vide[addr]==false){
     tabmutex[addr].lock();
     memcpy(bytes,registre[addr],size*sizeof(char));
