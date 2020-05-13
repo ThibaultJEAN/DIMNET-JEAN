@@ -1,17 +1,10 @@
 #ifndef CORE_SIMULATEUR_H
 #define CORE_SIMULATEUR_H
 
-// sleep() also under windows
-#ifdef __unix__
-# include <unistd.h>
-#elif defined _WIN32
-# include <windows.h>
-#define sleep(x) Sleep(1000 * (x))
-#endif
-
 #include <iostream>
 #include <string>
 #include <thread>
+#include <pthread.h>
 #include <mutex>
 
 #define DELAY 3
@@ -27,7 +20,7 @@ using namespace std;
 enum typeio {OUTPUT, INPUT};
 
 // exceptions gerees
-enum excep {SPEED, INOUT, ADDRESS, SIZEXC, EMPTY};
+enum excep {SPEED, INOUT, ADDRESS, SIZE_renom, EMPTY};
 class BoardException{
 protected:
     // numero de l'exception
@@ -59,7 +52,7 @@ protected:
     // outil pour eviter les conflits en lecture ecriture sur le bus
   mutex tabmutex[MAX_I2C_DEVICES];
 public:
-    // constructeur des diffÃ©rents attributs: memoire, etat et synchonisation
+    // constructeur des différents attributs: memoire, etat et synchonisation
     I2C();
   // est ce qu il y a quelque chose a lire pour le device numero addr
     bool isEmptyRegister(int addr);
@@ -110,12 +103,12 @@ public:
   Terminal Serial;
     // threads representant chaque senseur/actionneur sur le bus I2C
   thread *tabthreadbus[MAX_I2C_DEVICES];
-    
+
 // simulation de la boucle de controle arduino
     void run();
-  // accroachage d'un senseur/actionneur Ã  une pin
+  // accroachage d'un senseur/actionneur à une pin
     void pin(int p, Device& s);
-    // accroachage d'un senseur/actionneur Ã  une adresse du bus I2C
+    // accroachage d'un senseur/actionneur à une adresse du bus I2C
       void i2c(int addr,Device& dev);
  // fonction arduino : configuration d'une pin en entree ou en sortie
     void pinMode(int p,enum typeio t);
@@ -134,5 +127,6 @@ public:
 };
 
 #endif
+
 
 

@@ -1,11 +1,20 @@
-#include <unistd.h>
+#ifdef unix
+    #include <unistd.h>
+    #elif defined _WIN32
+    # include <windows.h>
+    #define sleep(x) Sleep(1000 * (x))
+#endif
+#include <stdio.h>
+#include <pthread.h>
+#include <windows.h>
 #include "core_simulation.h"
 
 // la fonction d'initialisation d'arduino
-void Board::setup(){
+void Board::setup()
+{
   // on configure la vitesse de la liaison
   Serial.begin(9600);
-// on fixe les pin en entree et en sorite en fonction des capteurs/actionneurs mis sur la carte
+  // on fixe les pin en entree et en sorite en fonction des capteurs/actionneurs mis sur la carte
   pinMode(1,INPUT);
   pinMode(0,OUTPUT);
 }
@@ -36,7 +45,4 @@ void Board::loop(){
   else
     digitalWrite(0,LOW);
   bascule=1-bascule;
-  
 }
-
-

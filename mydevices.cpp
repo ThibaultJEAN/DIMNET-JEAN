@@ -1,5 +1,13 @@
-
 #include "mydevices.h"
+
+#ifdef unix
+    #include <unistd.h>
+    #elif defined _WIN32
+    # include <windows.h>
+    #define sleep(x) Sleep(1000 * (x))
+#endif
+
+#include <pthread.h>
 
 using namespace std;
 
@@ -46,6 +54,7 @@ void I2CActuatorScreen::run(){
     sleep(1);
     }
 }
+
 
 
 
