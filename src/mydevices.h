@@ -6,7 +6,6 @@
 #include <unistd.h>
 #include <string.h>
 #include "core_simulation.h"
-#include <pthread.h>
 
 
 // exemple de capteur analogique de temperature, ne pas oublier d'heriter de Device
@@ -18,7 +17,7 @@ private:
   int val;
   // temps entre 2 prises de valeurs
   int temps;
-
+  
 public:
   //constructeur ne pas oublier d'initialiser la classe mere
   AnalogSensorTemperature(int d,int  t);
@@ -33,7 +32,7 @@ private:
   int state;
   // temps entre 2 affichage de l etat de la led
   int temps;
-
+  
 public:
     // initialisation du temps de rafraichiisement
   DigitalActuatorLED(int t);
@@ -46,7 +45,7 @@ class I2CActuatorScreen : public Device{
 protected:
     // memorise l'affichage de l'ecran
   char buf[I2C_BUFFER_SIZE];
-
+  
 public:
   // constructeur
   I2CActuatorScreen ();
@@ -55,4 +54,3 @@ public:
 };
 
 #endif
-
