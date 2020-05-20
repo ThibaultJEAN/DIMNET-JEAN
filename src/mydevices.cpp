@@ -2,6 +2,19 @@
 #include "mydevices.h"
 
 using namespace std;
+//classe AnalogSensorLuminosity
+AnalogSensorLuminosity::AnalogSensorLuminosity(int luminosite_environnement,int t): Device(),val_lux(luminosite_environnement),temps(t){
+alea = 1;
+}
+
+void AnalogSensorLuminosity::run(){
+  while(1){
+    alea=1-alea;
+    if(ptrmem!=NULL)
+      *ptrmem=val_lux+alea;
+    sleep(temps);
+  }
+}
 
 //classe AnalogSensorTemperature
 AnalogSensorTemperature::AnalogSensorTemperature(int d,int  t):Device(),val(t),temps(d){
