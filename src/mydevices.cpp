@@ -2,14 +2,17 @@
 #include "mydevices.h"
 
 using namespace std;
+
+int luminosite_environnement = 200;
+
 //classe AnalogSensorLuminosity
-AnalogSensorLuminosity::AnalogSensorLuminosity(int luminosite_environnement,int t): Device(),val_lux(luminosite_environnement),temps(t){
-alea = 1;
+AnalogSensorLuminosity::AnalogSensorLuminosity(int t,int l): Device(),val_lux(l),temps(t){
+alea = 20;
 }
 
 void AnalogSensorLuminosity::run(){
   while(1){
-    alea=1-alea;
+    alea=20-rand()%20;
     if(ptrmem!=NULL)
       *ptrmem=val_lux+alea;
     sleep(temps);
@@ -17,7 +20,7 @@ void AnalogSensorLuminosity::run(){
 }
 
 //classe AnalogSensorTemperature
-AnalogSensorTemperature::AnalogSensorTemperature(int d,int  t):Device(),val(t),temps(d){
+AnalogSensorTemperature::AnalogSensorTemperature(int d,int t):Device(),val(t),temps(d){
   alea=1;
 }
 

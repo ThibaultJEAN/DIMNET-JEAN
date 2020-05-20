@@ -7,15 +7,17 @@ int main(){
   Board esp8266;
   // achat des senseurs et actionneurs
   AnalogSensorTemperature temperature(DELAY,TEMP);
-  AnalogSensorLuminosity luminosite(DELAY,TEMP);
+  AnalogSensorLuminosity luminosite(DELAY,luminosite_environnement);
   DigitalActuatorLED led1(DELAY);
-  I2CActuatorScreen screen;
-  
+  I2CActuatorScreen screen_temp;
+  I2CActuatorScreen screen_lumi;
+
   // branchement des capteurs actionneurs
   esp8266.pin(1,temperature);
   esp8266.pin(2,luminosite);
   esp8266.pin(0,led1);
-  esp8266.i2c(1,screen);
+  esp8266.i2c(1,screen_temp);
+  esp8266.i2c(2,screen_lumi);
   
   // allumage de la carte
   esp8266.run();

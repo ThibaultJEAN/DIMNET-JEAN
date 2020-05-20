@@ -5,9 +5,10 @@
 #include <thread>
 #include <unistd.h>
 #include <string.h>
+#include <cstdlib>
 #include "core_simulation.h"
 
-int luminosite_environnement = 200;
+extern int luminosite_environnement;
 
 class AnalogSensorLuminosity : public Device {
 private : 
@@ -16,7 +17,7 @@ private :
 	int temps;
 
 public : 
-	AnalogSensorLuminosity(int luminosite_environnement, int t);
+	AnalogSensorLuminosity(int t, int l);
 	virtual void run();
 };
 // exemple de capteur analogique de temperature, ne pas oublier d'heriter de Device
