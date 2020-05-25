@@ -15,6 +15,7 @@
 #include <mutex>
 
 #define DELAY 3
+#define PORTE 0
 #define TEMP 22
 #define HIGH 1
 #define LOW 0

@@ -9,6 +9,28 @@
 #include "core_simulation.h"
 
 extern int luminosite_environnement;
+extern float debit_eau;
+extern int temperature_eau;
+
+class AnalogSensorPorte : public Device {
+private : 
+	bool Porteouverte;
+public :
+	AnalogSensorPorte(bool Porte);
+	bool getPorte();
+	void setPorte(bool porte);
+	virtual void run();
+};
+
+class AnalogSensorPressure : public Device {
+private : 
+	float alea;
+	float val_pres;
+	int temps;
+public : 
+	AnalogSensorPressure(int t, float pres);
+	virtual void run();
+};
 
 class AnalogSensorLuminosity : public Device {
 private : 
@@ -26,7 +48,7 @@ private:
   // fait osciller la valeur du cpateur de 1
   int alea;
   // valeur de temperature mesuree
-  int val;
+  int val_temp;
   // temps entre 2 prises de valeurs
   int temps;
   
@@ -44,6 +66,7 @@ private:
   int state;
   // temps entre 2 affichage de l etat de la led
   int temps;
+  char couleur;
   
 public:
     // initialisation du temps de rafraichiisement

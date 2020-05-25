@@ -4,6 +4,45 @@
 using namespace std;
 
 int luminosite_environnement = 200;
+float debit_eau = 2;
+int temperature_eau = 30;
+
+AnalogSensorPorte::AnalogSensorPorte(bool Porte):Device(){
+	Porteouverte = Porte;
+}
+bool AnalogSensorPorte::getPorte(){
+	return Porteouverte;
+}
+void AnalogSensorPorte::setPorte(bool porte){
+	Porteouverte = porte;
+}
+
+void AnalogSensorPorte::run(){
+  char toto;
+  while(1){
+	
+	scanf("%c",&toto);
+	if (toto == 'o'){
+		setPorte(true);
+	} if (toto == 'f'){
+		setPorte(false);
+	}
+	*ptrmem = Porteouverte;
+	}
+}
+
+AnalogSensorPressure :: AnalogSensorPressure(int t, float pres): Device(),val_pres(pres),temps(t){
+alea = 2;
+}
+void AnalogSensorPressure::run(){
+  while(1){
+	alea = 2-rand()%2;
+	 if(ptrmem!=NULL)
+      	  *ptrmem=val_pres+alea;
+    	sleep(temps);
+  }
+
+}
 
 //classe AnalogSensorLuminosity
 AnalogSensorLuminosity::AnalogSensorLuminosity(int t,int l): Device(),val_lux(l),temps(t){
@@ -20,7 +59,7 @@ void AnalogSensorLuminosity::run(){
 }
 
 //classe AnalogSensorTemperature
-AnalogSensorTemperature::AnalogSensorTemperature(int d,int t):Device(),val(t),temps(d){
+AnalogSensorTemperature::AnalogSensorTemperature(int d,int t):Device(),val_temp(t),temps(d){
   alea=1;
 }
 
@@ -28,7 +67,7 @@ void AnalogSensorTemperature::run(){
   while(1){
     alea=1-alea;
     if(ptrmem!=NULL)
-      *ptrmem=val+alea;
+      *ptrmem=val_temp+alea;
     sleep(temps);
   }
 }
@@ -41,11 +80,11 @@ void DigitalActuatorLED::run(){
   while(1){
     if(ptrmem!=NULL)
       state=*ptrmem;
-    if (state==LOW)
+    /*if (state==LOW)
       cout << "((((eteint))))\n";
     else
-    cout << "((((allume))))\n";
-    sleep(temps);
+      cout << "((((allume))))\n";
+    sleep(temps);*/
     }
 }
 
