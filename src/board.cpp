@@ -10,7 +10,9 @@ int main(){
   AnalogSensorPressure debit(DELAY,debit_eau);
   AnalogSensorTemperature temperature(DELAY,temperature_eau);
   AnalogSensorLuminosity luminosite(DELAY,luminosite_environnement);
-  DigitalActuatorLED led1(DELAY);
+  AnalogActuatorElectrovanne electronvanne1(DELAY);
+  DigitalActuatorLED led1(DELAY,'R');
+  DigitalActuatorLEDBarre ledbarre1(DELAY,10);
   I2CActuatorScreen screen_temp;
   I2CActuatorScreen screen_lumi;
 
@@ -20,6 +22,8 @@ int main(){
   esp8266.pin(1,temperature);
   esp8266.pin(2,luminosite);
   esp8266.pin(0,led1);
+  esp8266.pin(5,ledbarre1);
+  esp8266.pin(6,electronvanne1);
   //esp8266.i2c(1,screen_temp);
   //esp8266.i2c(2,screen_lumi);
   

@@ -5,6 +5,7 @@
 #include <thread>
 #include <unistd.h>
 #include <string.h>
+#include <list>
 #include <cstdlib>
 #include "core_simulation.h"
 
@@ -12,6 +13,19 @@ extern int luminosite_environnement;
 extern float debit_eau;
 extern int temperature_eau;
 
+class AnalogActuatorElectrovanne : public Device {
+private : 
+	int ouverture;
+	int temps;
+public : 
+	AnalogActuatorElectrovanne(int t);
+	void setOuverture(int o);
+	int getOuverture();
+	virtual void run();
+
+
+
+};
 class AnalogSensorPorte : public Device {
 private : 
 	bool Porteouverte;
@@ -24,7 +38,7 @@ public :
 
 class AnalogSensorPressure : public Device {
 private : 
-	float alea;
+	//float alea;
 	float val_pres;
 	int temps;
 public : 
@@ -59,6 +73,8 @@ public:
   virtual void run();
 };
 
+
+
 // exemple d'actionneur digital : une led, ne pas oublier d'heriter de Device
 class DigitalActuatorLED: public Device {
 private:
@@ -70,9 +86,25 @@ private:
   
 public:
     // initialisation du temps de rafraichiisement
-  DigitalActuatorLED(int t);
+  DigitalActuatorLED(int t,char c);
+  void SetCouleurLED(char c);
+  char getCouleurLED();
   // thread representant l'actionneur et permettant de fonctionner independamment de la board
   virtual void run();
+};
+
+class DigitalActuatorLEDBarre : public Device {
+private : 
+	int state;
+	int temps;
+	int nb_led;
+	list<DigitalActuatorLED*> LEDBarre;
+	list<DigitalActuatorLED*>::iterator it;
+public : 
+	DigitalActuatorLEDBarre(int t, int led);
+	void setBarreLED(char cLED);
+	char getCouleurBarre();
+	virtual void run();
 };
 
 // exemple d'actionneur sur le bus I2C permettant d'echanger des tableaux de caracteres : un ecran, ne pas oublier d'heriter de Device

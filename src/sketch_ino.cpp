@@ -11,6 +11,8 @@ void Board::setup(){
   pinMode(3,INPUT);
   pinMode(4,INPUT);
   pinMode(0,OUTPUT);
+  pinMode(5,OUTPUT);
+  pinMode(6,OUTPUT);
 }
 
 // la boucle de controle arduino
@@ -23,7 +25,9 @@ void Board::loop(){
   static bool portetest = false;
   static bool personnedouche = false;
   static int cpt=0;
-  static int bascule=0;
+  static bool basculeLEDRouge = false;
+  static bool basculeLEDBarre = false;
+  static int commandevanne = 0;
   int i=0;
   for(i=0;i<10;i++){
     // lecture sur la pin 1 : capteur de temperature
@@ -57,11 +61,16 @@ void Board::loop(){
 		personnedouche= true;
 		}else if(porte == true && personnedouche == true){
 		personnedouche = false;
+		basculeLEDRouge = false;
+		basculeLEDBarre = false;
+		commandevanne =0;
 		}
 	}
      
      if (personnedouche == true){
-        
+	
+	basculeLEDRouge = true;
+ 	basculeLEDBarre = true;
 	sprintf(buf,"Débit %f",debit);
     	Serial.println(buf);
       	sprintf(buf,"%f",debit);
@@ -71,18 +80,28 @@ void Board::loop(){
         sprintf(buf,"%d",val_temp);
         bus.write(1,buf,100);
 	sleep(3);
+	if(debit > 3){
+ 	   commandevanne = commandevanne-10;
+	 } else if (debit <3){
+	   commandevanne = commandevanne+10;	
+	}
 	} 
     }
     cpt++;
       //sleep(0.01);
   }
-  
-// on eteint et on allume la LED
-  if(bascule)
+  analogWrite(6,commandevanne);
+// on eteint et on allume la LED Rouge de présence
+  if(basculeLEDRouge == true)
     digitalWrite(0,HIGH);
   else
     digitalWrite(0,LOW);
-  bascule=1-bascule;
+  //basculeLEDRouge=1-basculeLEDRouge;
+  
+  if(basculeLEDBarre == true)
+    digitalWrite(5,HIGH);
+  else
+    digitalWrite(5,LOW);
   
 }
 

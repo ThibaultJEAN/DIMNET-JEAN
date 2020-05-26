@@ -122,6 +122,7 @@ void Board::run(){
   }
   catch(BoardException e){
     cout <<"exception: "<<e.get() <<endl;
+    abort();
   }
 }
 
