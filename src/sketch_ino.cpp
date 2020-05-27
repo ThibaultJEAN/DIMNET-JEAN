@@ -30,36 +30,30 @@ void Board::loop(){
   static int commandevanne = 0;
   int i=0;
   for(i=0;i<10;i++){
-    // lecture sur la pin 1 : capteur de temperature
-    /*val=analogRead(1);
-    sprintf(buf,"temperature %d",val);
-    Serial.println(buf);
+    
+    /*
     val_lux=analogRead(2);
     sprintf(buf,"luminosite %d",val_lux);
     Serial.println(buf);
-    porte = analogRead(3);
-    sprintf(buf,"PorteOuverte %d",porte);
-    Serial.println(buf);*/
+    */
+    // lecture sur la pin 1 : capteur de temperature
     val_temp = analogRead(1);
+    // lecture sur la pin 3 : capteur de porte
     porte = analogRead(3);
+    // lecture sur la pin 4 : capteur de debit
     debit = analogRead(4);
 
     if(cpt%5==0){
         // tous les 5 fois on affiche sur l ecran la temperature
-      
-      /*sprintf(buf,"%d",val);
-      bus.write(1,buf,100);
-      sprintf(buf,"%d",val_lux);
-      bus.write(2,buf,100);*/
-      if (porte != portetest){
+      if (porte != portetest){ // on teste si l'etat de la porte et different de l'etat precedent
    	sprintf(buf,"PorteOuverte %d",porte);
     	Serial.println(buf);
       	sprintf(buf,"%d",porte);
       	bus.write(3,buf,100);
       	portetest = porte;
-	if (porte == true && personnedouche == false) {
+	if (porte == true && personnedouche == false) { // si on ouvre la porte et que personne etait dans la douche alors quelqu'un rentre
 		personnedouche= true;
-		}else if(porte == true && personnedouche == true){
+		}else if(porte == true && personnedouche == true){ //si on ouvre la porte et que quelqu'un etait dans la douche alors la personne sort, on eteint dans le même temps les differentes LED
 		personnedouche = false;
 		basculeLEDRouge = false;
 		basculeLEDBarre = false;
@@ -71,6 +65,7 @@ void Board::loop(){
 	
 	basculeLEDRouge = true;
  	basculeLEDBarre = true;
+	// on ecrit ici les differentes valeurs des capteurs de temperature, pression
 	sprintf(buf,"Débit %f",debit);
     	Serial.println(buf);
       	sprintf(buf,"%f",debit);
@@ -88,16 +83,15 @@ void Board::loop(){
 	} 
     }
     cpt++;
-      //sleep(0.01);
   }
+// on ecrit la valeur de la commande de debit sur le pin de sortie
   analogWrite(6,commandevanne);
 // on eteint et on allume la LED Rouge de présence
   if(basculeLEDRouge == true)
     digitalWrite(0,HIGH);
   else
     digitalWrite(0,LOW);
-  //basculeLEDRouge=1-basculeLEDRouge;
-  
+// on eteint et on allume la barre de LED interieur  
   if(basculeLEDBarre == true)
     digitalWrite(5,HIGH);
   else

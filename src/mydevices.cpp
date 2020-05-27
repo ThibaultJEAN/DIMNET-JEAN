@@ -7,6 +7,7 @@ int luminosite_environnement = 200;
 float debit_eau = 0;
 int temperature_eau = 30;
 
+// classe pour la sortie sur la regulation du debit
 AnalogActuatorElectrovanne::AnalogActuatorElectrovanne(int t): Device(),temps(t){
 	ouverture = 0;
 }
@@ -28,7 +29,7 @@ void AnalogActuatorElectrovanne::run(){
       }
 }
 }
-
+// classe pour la detection de l'ouverture et fermeture de la porte
 AnalogSensorPorte::AnalogSensorPorte(bool Porte):Device(){
 	Porteouverte = Porte;
 }
@@ -52,7 +53,7 @@ void AnalogSensorPorte::run(){
 	*ptrmem = Porteouverte;
 	}
 }
-
+// classe sur le capteur de debit
 AnalogSensorPressure :: AnalogSensorPressure(int t, float pres): Device(),val_pres(pres),temps(t){
 //alea = 2;
 }
@@ -120,7 +121,7 @@ void DigitalActuatorLED::run(){
     sleep(5);
     }
 }
-
+// classe DigitalActuatorLEDBarre, classe pour la barre de LED interieure
 DigitalActuatorLEDBarre::DigitalActuatorLEDBarre(int t, int led) : Device(),state(LOW),temps(t){
     for(int i =0; i <led ; i++){
 	LEDBarre.push_back(new DigitalActuatorLED(t,'R'));	

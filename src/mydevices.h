@@ -12,7 +12,7 @@
 extern int luminosite_environnement;
 extern float debit_eau;
 extern int temperature_eau;
-
+// classe pour la sortie sur la regulation du debit
 class AnalogActuatorElectrovanne : public Device {
 private : 
 	int ouverture;
@@ -22,10 +22,8 @@ public :
 	void setOuverture(int o);
 	int getOuverture();
 	virtual void run();
-
-
-
 };
+// classe pour la detection de l'ouverture et fermeture de la porte
 class AnalogSensorPorte : public Device {
 private : 
 	bool Porteouverte;
@@ -36,6 +34,7 @@ public :
 	virtual void run();
 };
 
+// classe sur le capteur de debit
 class AnalogSensorPressure : public Device {
 private : 
 	//float alea;
@@ -45,7 +44,7 @@ public :
 	AnalogSensorPressure(int t, float pres);
 	virtual void run();
 };
-
+//classe AnalogSensorLuminosity
 class AnalogSensorLuminosity : public Device {
 private : 
 	int alea;
@@ -92,7 +91,7 @@ public:
   // thread representant l'actionneur et permettant de fonctionner independamment de la board
   virtual void run();
 };
-
+// classe DigitalActuatorLEDBarre, classe pour la barre de LED interieure
 class DigitalActuatorLEDBarre : public Device {
 private : 
 	int state;

@@ -121,7 +121,8 @@ void Board::run(){
     while(1) loop();
   }
   catch(BoardException e){
-    cout <<"exception: "<<e.get() <<endl;
+    cout <<"exception: "<<e.get() << endl;
+    cout <<e.text() <<endl;
     abort();
   }
 }
