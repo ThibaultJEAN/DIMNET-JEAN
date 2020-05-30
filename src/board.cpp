@@ -12,20 +12,20 @@ int main(){
   AnalogSensorLuminosity luminosite(DELAY,luminosite_environnement);
   AnalogActuatorElectrovanne electronvanne1(DELAY);
   DigitalActuatorLED led1(DELAY,'R');
-  DigitalActuatorLEDBarre ledbarre1(DELAY,10);
+  DigitalActuatorLEDBarre ledbarre1(DELAY,NB_LED);
   I2CActuatorScreen screen_temp;
   I2CActuatorScreen screen_lumi;
 
   // branchement des capteurs actionneurs
-  esp8266.pin(3,porte);
-  esp8266.pin(4,debit);
-  esp8266.pin(1,temperature);
-  esp8266.pin(2,luminosite);
-  esp8266.pin(0,led1);
-  esp8266.pin(5,ledbarre1);
-  esp8266.pin(6,electronvanne1);
-  //esp8266.i2c(1,screen_temp);
-  //esp8266.i2c(2,screen_lumi);
+  esp8266.pin(PIN_CAPTEUR_PORTE,porte);
+  esp8266.pin(PIN_CAPTEUR_PRESSION,debit);
+  esp8266.pin(PIN_CAPTEUR_TEMP,temperature);
+  esp8266.pin(PIN_CAPTEUR_LUM,luminosite);
+  esp8266.pin(PIN_LED,led1);
+  esp8266.pin(PIN_LEDBARRE,ledbarre1);
+  esp8266.pin(PIN_ACTIONNEUR_ELECTROVANNE,electronvanne1);
+  //esp8266.i2c(I2C_SCREEN_TEMP,screen_temp);
+  //esp8266.i2c(I2C_SCREEN_LUM,screen_lumi);
   
   // allumage de la carte
   esp8266.run();

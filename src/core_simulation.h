@@ -14,14 +14,38 @@
 #include <thread>
 #include <mutex>
 
-#define DELAY 3
+#define BAUD_RATE 9600
+#define DELAY 5
 #define PORTE 0
 #define TEMP 22
 #define HIGH 1
 #define LOW 0
-#define MAX_I2C_DEVICES 4
+#define MAX_I2C_DEVICES 10
 #define I2C_BUFFER_SIZE 1024
 #define MAX_IO_PIN 10
+#define PIN_CAPTEUR_PORTE 3
+#define PIN_CAPTEUR_PRESSION 4
+#define PIN_CAPTEUR_TEMP 1
+#define PIN_CAPTEUR_LUM 2
+#define PIN_LED 0
+#define PIN_LEDBARRE 5
+#define PIN_ACTIONNEUR_ELECTROVANNE 6
+#define I2C_SCREEN_TEMP 1
+#define I2C_SCREEN_LUM 2
+#define CARAC_MAX 100
+#define NB_LED 10
+#define DEBIT_EAU_MAX 10
+#define OUVERTURE_ELECTROVANNE_MAX 255
+#define NB_TOURS_BOUCLE_FOR 10
+#define COMPTEUR_BOUCLE_FOR 5
+#define DEBIT_VOULU 3
+#define TEMP_VOULU 30
+#define LUM_ENVIRONNEMENT 200
+#define OUVERTURE_INIT 0
+#define DEBIT_EAU_INIT 0
+#define VANNE 10
+#define ALEA_LUM 20
+#define ALEA_TEMP 1
 
 using namespace std;
 

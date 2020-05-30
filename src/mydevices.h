@@ -12,6 +12,7 @@
 extern int luminosite_environnement;
 extern float debit_eau;
 extern int temperature_eau;
+
 // classe pour la sortie sur la regulation du debit
 class AnalogActuatorElectrovanne : public Device {
 private : 
@@ -38,7 +39,7 @@ public :
 class AnalogSensorPressure : public Device {
 private : 
 	//float alea;
-	float val_pres;
+	int val_pres;
 	int temps;
 public : 
 	AnalogSensorPressure(int t, float pres);

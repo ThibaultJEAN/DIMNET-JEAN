@@ -3,13 +3,13 @@
 
 using namespace std;
 
-int luminosite_environnement = 200;
-float debit_eau = 0;
-int temperature_eau = 30;
+int luminosite_environnement = LUM_ENVIRONNEMENT;
+float debit_eau = DEBIT_EAU_INIT;
+int temperature_eau = TEMP_VOULU;
 
 // classe pour la sortie sur la regulation du debit
 AnalogActuatorElectrovanne::AnalogActuatorElectrovanne(int t): Device(),temps(t){
-	ouverture = 0;
+	ouverture = OUVERTURE_INIT;
 }
 
 void AnalogActuatorElectrovanne::setOuverture(int o){
@@ -23,9 +23,9 @@ void AnalogActuatorElectrovanne::run(){
 		
     if(ptrmem!=NULL){
       ouverture=*ptrmem;
-      debit_eau = (int)((10*ouverture)/255);
-      cout << " La commande de la vanne est :" << ouverture << endl;
-      sleep(5);
+      debit_eau = (int)((DEBIT_EAU_MAX*ouverture)/OUVERTURE_ELECTROVANNE_MAX);
+      cout << "La commande de la vanne est :" << ouverture << endl;
+      sleep(temps);
       }
 }
 }
@@ -55,11 +55,9 @@ void AnalogSensorPorte::run(){
 }
 // classe sur le capteur de debit
 AnalogSensorPressure :: AnalogSensorPressure(int t, float pres): Device(),val_pres(pres),temps(t){
-//alea = 2;
 }
 void AnalogSensorPressure::run(){
   while(1){
-	//alea = 2-rand()%2;
 	 if(ptrmem!=NULL)
       	  *ptrmem=debit_eau;
 	   val_pres = debit_eau;
@@ -70,12 +68,12 @@ void AnalogSensorPressure::run(){
 
 //classe AnalogSensorLuminosity
 AnalogSensorLuminosity::AnalogSensorLuminosity(int t,int l): Device(),val_lux(l),temps(t){
-alea = 20;
+alea = ALEA_LUM;
 }
 
 void AnalogSensorLuminosity::run(){
   while(1){
-    alea=20-rand()%20;
+    alea=ALEA_LUM-rand()%ALEA_LUM;
     if(ptrmem!=NULL)
       *ptrmem=val_lux+alea;
     sleep(temps);
@@ -84,12 +82,12 @@ void AnalogSensorLuminosity::run(){
 
 //classe AnalogSensorTemperature
 AnalogSensorTemperature::AnalogSensorTemperature(int d,int t):Device(),val_temp(t),temps(d){
-  alea=1;
+  alea=ALEA_TEMP;
 }
 
 void AnalogSensorTemperature::run(){
   while(1){
-    alea=1-alea;
+    alea=ALEA_TEMP-alea;
     if(ptrmem!=NULL)
       *ptrmem=val_temp+alea;
     sleep(temps);
@@ -118,7 +116,7 @@ void DigitalActuatorLED::run(){
       cout << "LED Rouge éteinte\n";
     else
       cout << "LED Rouge allumée\n";
-    sleep(5);
+    sleep(temps);
     }
 }
 // classe DigitalActuatorLEDBarre, classe pour la barre de LED interieure
@@ -144,7 +142,7 @@ void DigitalActuatorLEDBarre::run(){
 	 it = LEDBarre.begin();
      	 cout << "Barre de LED allumée et de couleur "<< (*it)->getCouleurLED()<<endl;
 	}
-    	sleep(5);
+    	sleep(temps);
 
 }
 
@@ -159,7 +157,7 @@ void I2CActuatorScreen::run(){
       Device::i2cbus->requestFrom(i2caddr, buf, I2C_BUFFER_SIZE);
       cout << "---screen :"<< buf << endl;
     }
-    sleep(1);
+    sleep(DELAY);
     }
 }
 
